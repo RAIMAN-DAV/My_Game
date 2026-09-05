@@ -2,7 +2,6 @@
 
 class Position {
 	float x, y;                 
-public:
 
 
 };

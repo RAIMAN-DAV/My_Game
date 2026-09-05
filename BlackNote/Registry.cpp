@@ -2,7 +2,7 @@
 
 class Registry {
 	Position pos;
-	Size 
-
+	Size size;
+	HitBox hit;
 
 };

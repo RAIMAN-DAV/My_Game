@@ -1,3 +1,5 @@
+#include "Registry.h"
+
 using namespace std;
 
 
