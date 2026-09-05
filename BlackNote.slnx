@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="BlackNote/BlackNote.vcxproj" Id="9f87bf80-4f60-4a10-af5e-63b35dacb846" />
+</Solution>

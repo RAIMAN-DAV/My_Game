@@ -3,5 +3,5 @@
 class storage {};
 
 struct Position {};
-struct Size {};
+struct Dimension {};
 struct HitBox {};

@@ -6,7 +6,7 @@ struct Position {
 
 };
 
-struct Size {
+struct Dimension {
 	float width; float height;   
 
 
