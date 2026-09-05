@@ -1,6 +1,7 @@
 #pragma once
 
+class storage {};
 
-class Position {};
-class Size {};
-class HitBox {};
+struct Position {};
+struct Size {};
+struct HitBox {};

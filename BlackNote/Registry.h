@@ -1,11 +1,7 @@
 #pragma once
-#include "Components.h";
+#include "Components.h"
 
-class Registry {
-
-
-
-};
+class Registry {};
 
 
 

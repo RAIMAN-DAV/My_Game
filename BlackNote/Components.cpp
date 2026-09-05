@@ -1,19 +1,19 @@
-#include "Components.h";
+#include "Components.h"
 
-class Position {
+struct Position {
 	float x, y;                 
 
 
 };
 
-class Size {
+struct Size {
 	float width; float height;   
 
 
 };
 
 
-class HitBox {
+struct HitBox {
 	float x, y;                  
 	float width; float height;   
 
