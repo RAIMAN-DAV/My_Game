@@ -95,12 +95,8 @@ public:
 
     //Функции для стен
     bool BlockMovement(float o_x, float o_y, float o_width, float o_height) {
-
-
-
+		return false;
     }
-    
-
 };
 
 class GameObject {
@@ -882,7 +878,7 @@ void HitChek(Player& Pl, World& W, WallManager& S, char dir) {
             }
         }
 
-        break;a
+        break;
     }
     case 'S': {
         if (!W.HitGridChek(Pl)) {
