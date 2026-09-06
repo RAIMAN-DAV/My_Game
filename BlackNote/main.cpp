@@ -1,9 +1,9 @@
 #include "Registry.h"
 
 int main() {
-	Registry registry();
+	Registry registry{};
 
-
+	registry.Add();
 
 
 }

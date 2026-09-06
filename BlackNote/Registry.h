@@ -5,7 +5,6 @@
 
 class Registry {
 	storage stor;
-	EntityID ID;
 
 	deque<EntityID> ids; // Контейнер с ID
 	uint64_t nextID = 1; // Следующий выдаваемый номер
@@ -16,7 +15,7 @@ public:
 		nextID++;
 
 		return ids.back();
-		}
+	}
 
 
 };

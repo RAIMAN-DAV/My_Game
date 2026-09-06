@@ -2,10 +2,10 @@
 #include "EntityID.h"
 
 struct Position {
-	EntityID ID;
+	EntityID& ID;
 	float x, y;
 
-	Position(EntityID startID, float startX, float startY) 
+	Position(EntityID& startID, float startX, float startY) 
 		: ID(startID), x(startX), y(startY) {}
 };
 

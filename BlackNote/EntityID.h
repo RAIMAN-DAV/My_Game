@@ -3,7 +3,7 @@
 
 class EntityID {
 	uint64_t ID;
-
+public:
 	EntityID(uint64_t startID) 
 		: ID(startID) {}
 };
