@@ -4,6 +4,9 @@
 struct Position {
 	EntityID ID;
 	float x, y;
+
+	Position(EntityID startID, float startX, float startY) 
+		: ID(startID), x(startX), y(startY) {}
 };
 
 struct Dimension {

@@ -7,9 +7,16 @@ class Registry {
 	storage stor;
 	EntityID ID;
 
+	deque<EntityID> ids; // Контейнер с ID
+	uint64_t nextID = 1; // Следующий выдаваемый номер
 
 public:
-	void Add() {}
+	EntityID& Add() {
+		ids.emplace_back(nextID);
+		nextID++;
+
+		return ids.back();
+		}
 
 
 };
