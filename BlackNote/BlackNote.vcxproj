@@ -139,7 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Components.cpp" />
+    <ClCompile Include="EntityID.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Registry.cpp" />
     <ClCompile Include="Storage.cpp" />
@@ -147,7 +147,9 @@
   <ItemGroup>
     <ClInclude Include="Components.h" />
     <ClInclude Include="ECS_DATA.h" />
+    <ClInclude Include="EntityID.h" />
     <ClInclude Include="Registry.h" />
+    <ClInclude Include="Storage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

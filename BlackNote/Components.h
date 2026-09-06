@@ -1,7 +1,21 @@
 #pragma once
+#include "EntityID.h"
 
-class storage {};
+struct Position {
+	EntityID ID;
+	float x, y;
+};
 
-struct Position {};
-struct Dimension {};
-struct HitBox {};
+struct Dimension {
+	float width; float height;
+
+
+};
+
+
+struct HitBox {
+	float x, y;
+	float width; float height;
+
+
+};
