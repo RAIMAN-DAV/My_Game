@@ -2,7 +2,7 @@
 #include "Components.h"
 
 
-class storage {
+class Storage {
 	vector<Position> pos;
 	vector<Dimension> dimension;
 	vector<HitBox> HB;

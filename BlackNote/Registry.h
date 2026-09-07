@@ -2,9 +2,9 @@
 #include "ECS_DATA.h"
 #include "Storage.h"
 #include "EntityID.h"
-
+ 
 class Registry {
-	storage stor;
+	Storage stor;
 
 	deque<EntityID> ids; // Контейнер с ID
 	uint64_t nextID = 1; // Следующий выдаваемый номер
@@ -16,7 +16,10 @@ public:
 
 		return ids.back();
 	}
-
+	void AddPosition(uint64_t ID, float x, float y) {
+		EntityID& entityRef = ids[ID - 1];
+		stor.addPos(entityRef, x, y);
+	}
 
 };
 

@@ -6,5 +6,9 @@ class EntityID {
 public:
 	EntityID(uint64_t startID) 
 		: ID(startID) {}
+
+	uint64_t PrintID() {
+		return ID;
+	}
 };
 
