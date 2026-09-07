@@ -8,8 +8,9 @@ struct Position {
 
 	Position(EntityID& startID, float startX, float startY) 
 		: ID(startID), x(startX), y(startY) {
-		cout << ID.PrintID() <<" success!. " 
-			<< "[x, y] = [" << x << ", " << y << "]";
+
+		cout << "ID:" << ID.PrintID() << " success!. "
+			<< "[x, y] = [" << x << ", " << y << "]\n";
 	}
 };
 

@@ -139,6 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityID.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Registry.cpp" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="Components.h" />
     <ClInclude Include="ECS_DATA.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityID.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="Storage.h" />
