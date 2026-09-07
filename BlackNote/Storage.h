@@ -12,7 +12,15 @@ public:
 		Position position(ID, x, y);
 		pos.push_back(position);
 	}
-
+	bool FindPosition(EntityID& startID) {
+		for (int i = 0; i < pos.size(); i++) {
+			if ( &pos[i].ID == &startID) {
+				return true;
+				break;
+			}
+		}
+		return false;
+	}
 
 
 };

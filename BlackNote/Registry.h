@@ -24,13 +24,21 @@ public:
 
 		return ids.back();
 	}
+
 	void AddPosition(uint64_t ID, float x, float y) {
 		if (ID == 0 || ID > ids.size()) {
 			cout << "Error ID: " << ID << endl;
 		}
-		else stor.addPos(ids[ID - 1], x, y); 	
-	}
+		else if (stor.FindPosition(ids[ID - 1])) 
+			cout << "Error: Double AddPosition ID " << ID << endl;
 
+		else stor.addPos(ids[ID - 1], x, y); 	
+
+	}
+	void SetPosition(uint64_t ID, float x, float y) {
+		if (nextID >= ID) cout << "Error: don't AddPosition() ID " << ID << endl;
+		else {}
+	}
 
 };
 
