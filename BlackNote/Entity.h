@@ -12,6 +12,8 @@ public:
 		: ID(reg.Add()), registry(&reg) { }
 
 	void Position(float x, float y);
+	void Dimension(float width, float height);
+
 };
 
 

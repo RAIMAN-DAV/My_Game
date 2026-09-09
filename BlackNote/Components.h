@@ -9,15 +9,21 @@ struct Position {
 	Position(EntityID& startID, float startX, float startY) 
 		: ID(startID), x(startX), y(startY) {
 
-		cout << "ID:" << ID.PrintID() << " Success!. "
+		cout << "ID:" << ID.PrintID() << " Success! Position add. "
 			<< "[x, y] = [" << x << ", " << y << "]\n";
 	}
 };
 
 struct Dimension {
+	EntityID& ID;
 	float width; float height;
 
+	Dimension(EntityID& startID, float startWidth, float startHeight) 
+		: ID(startID), width(startWidth), height(startHeight) {
 
+		cout << "ID:" << ID.PrintID() << " Success! Dimension add. "
+			<< "[x, y] = [" << width << ", " << height << "]\n";
+	}
 };
 
 

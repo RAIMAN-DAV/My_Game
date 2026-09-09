@@ -14,8 +14,11 @@ int main() {
 
 	Entity blok_2(registry);
 	blok_2.Position(100, 60);
+	blok_2.Position(60, 150);
+	blok_2.Dimension(10, 20);
 
-
+	Entity blok_3(registry);
+	blok_3.Dimension(10, 40);
 }
 
 
