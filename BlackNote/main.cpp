@@ -19,6 +19,14 @@ int main() {
 
 	Entity blok_3(registry);
 	blok_3.Dimension(10, 40);
+	registry.AddPosition(3, 50, 90);
+
+	registry.Add();
+	registry.AddComponent<Position>(5, 10, 20);
+	registry.AddComponent<Position>(5, 50, 24);
+	registry.AddComponent<Dimension>(5, 4, 30);
+	registry.AddComponent<Dimension>(5, 6, 50);
+
 }
 
 

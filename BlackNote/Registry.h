@@ -5,7 +5,7 @@
 
  
 class Registry {
-	Storage stor;
+	Storage stor;        //Хранилище
 	friend class Entity;
 
 	deque<EntityID> ids; // Контейнер с ID
@@ -19,7 +19,7 @@ class Registry {
 	}
 
 public:
-
+	 
 	EntityID& Add() {
 		ids.emplace_back(nextID);
 		nextID++;
@@ -28,28 +28,26 @@ public:
 	}
 
 
-	void SetPosition(uint64_t ID, float x, float y) {
-		if (nextID >= ID) cout << "Error: don't AddPosition() ID " << ID << endl;
-		else {}
-	}
-
 	void AddPosition(uint64_t ID, float x, float y) {
 		if (ID == 0 || ID > ids.size()) {
 			cout << "Error ID: " << ID << endl;
 		}
 		else stor.addPos(ids[ID - 1], x, y); 	
 	}
-	
 	void AddDimension(uint64_t ID, float width, float height)  {
 		if (ID == 0 || ID > ids.size()) {
 			cout << "Error ID: " << ID << endl;
 		}
-		else if (stor.FindDimension(ids[ID - 1]))
-			cout << "Error: Double AddPosition ID " << ID << endl;
-
-		else stor.addPos(ids[ID - 1], width, height);
+		else stor.addDim(ids[ID - 1], width, height);
 	}
 
+	template<typename T>
+	void AddComponent(uint64_t ID, float Element_1, float Element_2) {
+		if (ID == 0 || ID > ids.size()) {
+			cout << "Error ID: " << ID << endl;
+		}
+		else stor.AddComponents<T>(ids[ID - 1], Element_1, Element_2);
+	}
 };
 
 
