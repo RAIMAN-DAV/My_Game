@@ -4,14 +4,6 @@
 int main() {
 	Registry registry;
 
-	registry.Add();
-	registry.AddPosition(1, 10, 20);  //ID и координаты x,y
-	registry.AddPosition(1, 150, 240);
-	registry.AddPosition(2, 140, 220);  //Не срабатывает, так как существа с таким ID нет.
-
-	Entity blok_1(registry);
-	registry.AddPosition(2, 140, 220);
-
 	Entity blok_2(registry);
 	blok_2.Position(100, 60);
 	blok_2.Position(60, 150);
@@ -19,13 +11,15 @@ int main() {
 
 	Entity blok_3(registry);
 	blok_3.Dimension(10, 40);
-	registry.AddPosition(3, 50, 90);
 
 	registry.Add();
-	registry.AddComponent<Position>(5, 10, 20);
-	registry.AddComponent<Position>(5, 50, 24);
-	registry.AddComponent<Dimension>(5, 4, 30);
-	registry.AddComponent<Dimension>(5, 6, 50);
+	registry.AddComponent<Position>(3, 10, 20);
+	registry.AddComponent<Position>(3, 50, 24);
+	registry.AddComponent<Dimension>(3, 4, 30);
+	registry.AddComponent<Dimension>(3, 6, 50);
+
+	Position* comp = registry.TryGetComponent<Position>(4);
+
 
 }
 
