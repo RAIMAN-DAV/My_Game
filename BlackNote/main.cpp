@@ -1,5 +1,6 @@
 #include "Registry.h"
 #include "Entity.h"
+#include "System.h"
 
 int main() {
 	Registry registry;
@@ -18,9 +19,17 @@ int main() {
 	registry.AddComponent<Dimension>(3, 4, 30);
 	registry.AddComponent<Dimension>(3, 6, 50);
 
-	Position* comp = registry.TryGetComponent<Position>(4);
+	registry.AddComponent<Velocity>(3, 10);
+
+	Position* comp = registry.TryGetComponent<Position>(3);
 
 
+	System system(registry);
+
+	system.SystemAdd<MovementSystem>(3); // Есть Position и Velocity
+	system.SystemAdd<MovementSystem>(3); // Дубликат
+	system.SystemAdd<MovementSystem>(1); // Нет Velocity
+	system.SystemAdd<MovementSystem>(0); // Неверный ID
 }
 
 

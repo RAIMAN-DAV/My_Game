@@ -144,6 +144,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Registry.cpp" />
     <ClCompile Include="Storage.cpp" />
+    <ClCompile Include="System.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components.h" />
@@ -152,6 +153,8 @@
     <ClInclude Include="EntityID.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="Storage.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="System_Component.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

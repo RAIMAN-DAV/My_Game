@@ -58,10 +58,29 @@ struct Dimension {
 	}
 };
 
+struct Velocity {
+	EntityID& ID;
+	float velocity;
+
+	Velocity(EntityID& startID, float startVelosity) 
+		: ID(startID), velocity(startVelosity){}
+
+	void Set(float startVelosity) {
+		velocity = startVelosity;
+	}
+
+	const void PrintElem() {
+		cout << " Velocity = ["
+			<< velocity
+			<< "] \n";
+	}
+
+};
 
 struct HitBox {
 	EntityID ID;
 	float x, y;
 	float width; float height;
 };
+
 
