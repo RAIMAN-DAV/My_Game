@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Registry.h"
 #include "System_Component.h"
 #include <type_traits>
 
@@ -66,7 +65,7 @@ public:
 		}
 		else {
 			if (CheckComponent<T>(ID)) {
-				systems.emplace_back(ID);
+				systems.emplace_back(ID, *registry);
 
 				systems.back().Print_Add();
 			}
@@ -74,6 +73,27 @@ public:
 				cout << "ID" << ID << ": Error. The components are not initialized. \n";
 			}
 		}
+	}
+
+
+	template <typename T, typename... Args>
+	void UsingSystem(uint64_t ID, Args... args) {
+		if (registry->CheckID(ID)) {
+			cout << "ID" << ID << ": Error. Not Initialized" << endl;
+
+			return;
+		}
+
+		auto& systems = GetSystem<T>();
+
+		T* system = nullptr;
+		FindSystem(ID, systems, system);
+
+		if (system == nullptr) {
+			cout << "ID" << ID << ": Error. Dont used System. \n";
+			return;
+		}
+		system -> UsingSystem(args...);
 	}
 
 };

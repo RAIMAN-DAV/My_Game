@@ -21,15 +21,57 @@ int main() {
 
 	registry.AddComponent<Velocity>(3, 10);
 
-	Position* comp = registry.TryGetComponent<Position>(3);
 
+	cout << endl;
 
 	System system(registry);
 
-	system.SystemAdd<MovementSystem>(3); // Есть Position и Velocity
-	system.SystemAdd<MovementSystem>(3); // Дубликат
-	system.SystemAdd<MovementSystem>(1); // Нет Velocity
-	system.SystemAdd<MovementSystem>(0); // Неверный ID
+	registry.Add();
+	registry.AddComponent<Position>(4, 0, 0);
+	registry.AddComponent<Dimension>(4, 100, 100);
+	registry.AddComponent<Velocity>(4, 10);
+
+	system.SystemAdd<MovementSystem>(4);
+
+	system.UsingSystem<MovementSystem>(4, 1, 1);
+	system.UsingSystem<MovementSystem>(4, 1, 0);
+	system.UsingSystem<MovementSystem>(4, 0, 1);
+	system.UsingSystem<MovementSystem>(4, -1, 1);
+	system.UsingSystem<MovementSystem>(4, 1, -1);
+
+
+
+	
+	SetTraceLogLevel(LOG_WARNING);
+	InitWindow(1000, 700, "My_Game");
+	SetTargetFPS(60);
+
+
+	while (!WindowShouldClose()) {
+		int x = IsKeyDown(KEY_D) - IsKeyDown(KEY_A);
+		int y = IsKeyDown(KEY_S) - IsKeyDown(KEY_W);
+
+		if (x != 0 || y != 0) {
+			system.UsingSystem<MovementSystem>(4, x, y);
+		}
+
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		DrawText("ECS window is ready", 20, 20, 24, DARKGRAY);
+
+		Position* pos = registry.TryGetComponent<Position>(4);
+		Dimension* dim = registry.TryGetComponent<Dimension>(4);
+
+		DrawRectangle(pos->x, pos->y, dim->width, dim->height, RED);
+
+
+		EndDrawing();
+	}
+
+	CloseWindow();
+
+	
 }
 
 
