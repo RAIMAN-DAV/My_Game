@@ -59,5 +59,8 @@
     <ClInclude Include="System_Component.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="EntitySystems.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -157,6 +157,7 @@
     <ClInclude Include="ECS_DATA.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityID.h" />
+    <ClInclude Include="EntitySystems.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="Storage.h" />
     <ClInclude Include="System.h" />

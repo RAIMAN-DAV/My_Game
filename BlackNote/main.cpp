@@ -4,86 +4,64 @@
 
 int main() {
 	Registry registry;
-
-	Entity blok_2(registry);
-	blok_2.Position(100, 60);
-	blok_2.Position(60, 150);
-	blok_2.Dimension(10, 20);
-
-	Entity blok_3(registry);
-	blok_3.Dimension(10, 40);
-
-	registry.Add();
-	registry.AddComponent<Position>(3, 10, 20);
-	registry.AddComponent<Position>(3, 50, 24);
-	registry.AddComponent<Dimension>(3, 4, 30);
-	registry.AddComponent<Dimension>(3, 6, 50);
-
-	registry.AddComponent<Velocity>(3, 10);
-
-
-	cout << endl;
-
 	System system(registry);
 
 	registry.Add();
-	registry.AddComponent<Position>(4, 0, 0);
-	registry.AddComponent<Dimension>(4, 100, 100);
-	registry.AddComponent<Velocity>(4, 10);
+	registry.AddComponent<Position>(1, 0, 0);
+	registry.AddComponent<Dimension>(1, 50, 50);
+	registry.AddComponent<Velocity>(1, 10);
+	system.SystemAdd<MovementSystem>(1);
 
-	system.SystemAdd<MovementSystem>(4);
-
-	system.UsingSystem<MovementSystem>(4, 1, 1);
-	system.UsingSystem<MovementSystem>(4, 1, 0);
-	system.UsingSystem<MovementSystem>(4, 0, 1);
-	system.UsingSystem<MovementSystem>(4, -1, 1);
-	system.UsingSystem<MovementSystem>(4, 1, -1);
-
-
-
+	system.UsingSystem<MovementSystem>(1, 1, 1);
+	system.UsingSystem<MovementSystem>(1, 1, 0);
+	system.UsingSystem<MovementSystem>(1, 0, 1);
+	system.UsingSystem<MovementSystem>(1, -1, 1);
+	system.UsingSystem<MovementSystem>(1, 1, -1);
 	
+
+
+	Entity Stive(registry);
+	Stive.Component<Position>(50, 50);
+	Stive.Component<Dimension>(50, 50);
+	Stive.Component<Velocity>(10);
+	Stive.AddSystem<MovementSystem>();
+
+
+
+
+
 	SetTraceLogLevel(LOG_WARNING);
 	InitWindow(1000, 700, "My_Game");
 	SetTargetFPS(60);
 
-
 	while (!WindowShouldClose()) {
-		int x = IsKeyDown(KEY_D) - IsKeyDown(KEY_A);
-		int y = IsKeyDown(KEY_S) - IsKeyDown(KEY_W);
 
-		if (x != 0 || y != 0) {
-			system.UsingSystem<MovementSystem>(4, x, y);
+		int move_x = IsKeyDown(KEY_D) - IsKeyDown(KEY_A);
+		int move_y = IsKeyDown(KEY_S) - IsKeyDown(KEY_W);
+
+		if (move_x != 0 || move_y != 0) {
+			system.UsingSystem<MovementSystem>(1, move_x, move_y);
 		}
+		Stive.UseSystem<MovementSystem>();
+
+
 
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
-		DrawText("ECS window is ready", 20, 20, 24, DARKGRAY);
 
-		Position* pos = registry.TryGetComponent<Position>(4);
-		Dimension* dim = registry.TryGetComponent<Dimension>(4);
+		Position* pos = registry.TryGetComponent<Position>(1);
+		Dimension* dim = registry.TryGetComponent<Dimension>(1);
 
-		DrawRectangle(pos->x, pos->y, dim->width, dim->height, RED);
+		if (pos != nullptr && dim != nullptr) {
+			DrawRectangle(pos->x, pos->y, dim->width, dim->height, RED);
+		}
+
+		Stive.Draw(BLUE);
 
 
 		EndDrawing();
 	}
 
 	CloseWindow();
-
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

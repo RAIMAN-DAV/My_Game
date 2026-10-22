@@ -1,7 +1,6 @@
 #pragma once
 
 #include "System_Component.h"
-#include <type_traits>
 
 
 class System {
@@ -95,6 +94,8 @@ public:
 		}
 		system -> UsingSystem(args...);
 	}
+
+
 
 };
 

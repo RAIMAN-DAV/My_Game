@@ -1,6 +1,5 @@
 #pragma once
 
-#include "raylib.h"
 #include "Registry.h"
 #include "Components.h"
 
@@ -25,10 +24,6 @@ struct MovementSystem {
 
 		Pos->x += Vel->velocity * arg_x;
 
-		cout << "ID" << ID << ": Success! Used MovementSystem [" << arg_x << ", " << 0 << "] ";
-
-		Pos->PrintElem();
-
 	}
 	void UsingSystem_Y(float arg_y) {
 
@@ -39,10 +34,6 @@ struct MovementSystem {
 			return;
 		}
 		Pos->y += Vel->velocity * arg_y;
-
-		cout << "ID" << ID << ": Success! Used MovementSystem [" << 0 << ", " << arg_y << "] ";
-
-		Pos->PrintElem();
 
 	}
 	void UsingSystem_XY(float arg_x, float arg_y) {
@@ -56,10 +47,6 @@ struct MovementSystem {
 
 		Pos->x += Vel->velocity * arg_x * 0.7;
 		Pos->y += Vel->velocity * arg_y * 0.7;
-
-		cout << "ID" << ID << ": Success! Used MovementSystem [" << arg_x << ", " << arg_y << "] ";
-
-		Pos->PrintElem();
 
 	}
 
