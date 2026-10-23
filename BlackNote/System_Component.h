@@ -4,13 +4,13 @@
 #include "Components.h"
 
 struct MovementSystem {
-	uint64_t ID;
+	EntityID& ID;
 	Registry* registry;
 
-	MovementSystem(uint64_t startID, Registry& reg) : ID(startID), registry(&reg) {}
+	MovementSystem(EntityID& startID, Registry& reg) : ID(startID), registry(&reg) {}
 
 	void Print_Add() {
-		cout << "ID" << ID << ": Success! MovementSystem Add \n";
+		cout << "ID" << ID.PrintID() << ": Success! MovementSystem Add \n";
 	}
 
 
@@ -53,7 +53,7 @@ struct MovementSystem {
 	void UsingSystem(float arg_x, float arg_y) {
 
 		if (arg_x == 0 && arg_y == 0) {
-			cout << "ID" << ID << ": No changes. Position unchanged.\n";
+			cout << "ID" << ID.PrintID() << ": No changes. Position unchanged.\n";
 		}
 		else if(arg_x != 0 && arg_y != 0) {
 			UsingSystem_XY(arg_x, arg_y);

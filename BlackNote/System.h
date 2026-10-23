@@ -19,7 +19,7 @@ class System {
 
 	}
 	template <typename T>
-	bool CheckComponent(uint64_t ID) {
+	bool CheckComponent(EntityID& ID) {
 		if constexpr (is_same_v<T, MovementSystem>) {
 			return registry -> HasComponent<Position, Velocity>(ID);
 		}
@@ -32,9 +32,9 @@ class System {
 
 
 	template <typename T>
-	void FindSystem(uint64_t ID, vector<T>& systems, T*& result) {
+	void FindSystem(EntityID& ID, vector<T>& systems, T*& result) {
 		for (auto& system : systems) {
-			if (system.ID == ID) {
+			if (&system.ID == &ID) {
 				result = &system;
 				return;
 			}
@@ -46,9 +46,9 @@ public:
 	System(Registry& reg): registry(&reg){}
 
 	template <typename T>
-	void SystemAdd(uint64_t ID) {
+	void SystemAdd(EntityID& ID) {
 		if (registry -> CheckID(ID)) {
-			cout << "ID" << ID << ": Error. Not Initialized" << endl;
+			cout << "ID" << ID.PrintID() << ": Error. Not Initialized" << endl;
 
 			return;
 		}
@@ -59,7 +59,7 @@ public:
 		FindSystem(ID, systems, system);
 
 		if (system != nullptr) {
-			cout << "ID" << ID << ": Error. Double system \n";
+			cout << "ID" << ID.PrintID() << ": Error. Double system \n";
 			return;
 		}
 		else {
@@ -69,17 +69,15 @@ public:
 				systems.back().Print_Add();
 			}
 			else {
-				cout << "ID" << ID << ": Error. The components are not initialized. \n";
+				cout << "ID" << ID.PrintID() << ": Error. The components are not initialized. \n";
 			}
 		}
 	}
 
 
 	template <typename T, typename... Args>
-	void UsingSystem(uint64_t ID, Args... args) {
+	void UsingSystem(EntityID& ID, Args... args) {
 		if (registry->CheckID(ID)) {
-			cout << "ID" << ID << ": Error. Not Initialized" << endl;
-
 			return;
 		}
 
@@ -89,7 +87,7 @@ public:
 		FindSystem(ID, systems, system);
 
 		if (system == nullptr) {
-			cout << "ID" << ID << ": Error. Dont used System. \n";
+			cout << "ID" << ID.PrintID() << ": Error. Dont used System. \n";
 			return;
 		}
 		system -> UsingSystem(args...);

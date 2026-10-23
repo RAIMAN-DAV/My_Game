@@ -93,4 +93,17 @@ public:
 	bool HasComponent(EntityID& ID) {
 		return ((TryGetComponents<Args>(ID) != nullptr) && ...);
 	}
+
+	//Сброс данных компонентов
+	void ResetComponents(EntityID& ID) {
+		Position* pos = TryGetComponents<Position>(ID);
+		if (pos != nullptr) pos->Reset();
+
+		Dimension* dim = TryGetComponents<Dimension>(ID);
+		if (dim != nullptr) dim->Reset();
+
+		Velocity* vel = TryGetComponents<Velocity>(ID);
+		if (vel != nullptr) vel->Reset();
+
+	}
 };

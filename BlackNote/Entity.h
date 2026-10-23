@@ -21,13 +21,15 @@ public:
 
 	template <typename T, typename... Args>
 	void Component(Args... args) {
-		registry->AddComponent<T>(ID.PrintID(), args...);
+		registry->AddComponent<T>(ID, args...);
 	}
 
 
 	void Draw(Color color) { 
-		Position* pos = registry->TryGetComponent<Position>(ID.PrintID());
-		Dimension* dim = registry->TryGetComponent<Dimension>(ID.PrintID());
+		if (ID.PrintID() == 0) return;
+
+		Position* pos = registry->TryGetComponent<Position>(ID);
+		Dimension* dim = registry->TryGetComponent<Dimension>(ID);
 
 		if (pos != nullptr && dim != nullptr) {
 			DrawRectangle(pos->x, pos->y, dim->width, dim->height, color);
@@ -35,7 +37,8 @@ public:
 	}
 
 	template<typename T>
-	void UseSystem() {; 
+	void UseSystem() {
+		if (ID.PrintID() == 0) return;
 
 		int move_x = IsKeyDown(KEY_D) - IsKeyDown(KEY_A);
 		int move_y = IsKeyDown(KEY_S) - IsKeyDown(KEY_W);
@@ -44,6 +47,20 @@ public:
 			system.UsingSystem<T>(move_x, move_y);
 		}
 	}
+
+	template<typename T>
+	void DestroySystem() {
+		system.DestroySystem<T>();
+	}
+	void DestroySystem() {
+		system.DestroySystem();
+	}
+
+	void Destroy() {
+		DestroySystem();
+		registry->DestroyEntity(ID);
+	}
+
 };
 
 

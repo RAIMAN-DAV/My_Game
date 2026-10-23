@@ -6,17 +6,17 @@ int main() {
 	Registry registry;
 	System system(registry);
 
-	registry.Add();
-	registry.AddComponent<Position>(1, 0, 0);
-	registry.AddComponent<Dimension>(1, 50, 50);
-	registry.AddComponent<Velocity>(1, 10);
-	system.SystemAdd<MovementSystem>(1);
+	EntityID& obj = registry.Add();
+	registry.AddComponent<Position>(obj, 0, 0);
+	registry.AddComponent<Dimension>(obj, 50, 50);
+	registry.AddComponent<Velocity>(obj, 10);
+	system.SystemAdd<MovementSystem>(obj);
 
-	system.UsingSystem<MovementSystem>(1, 1, 1);
-	system.UsingSystem<MovementSystem>(1, 1, 0);
-	system.UsingSystem<MovementSystem>(1, 0, 1);
-	system.UsingSystem<MovementSystem>(1, -1, 1);
-	system.UsingSystem<MovementSystem>(1, 1, -1);
+	system.UsingSystem<MovementSystem>(obj, 1, 1);
+	system.UsingSystem<MovementSystem>(obj, 1, 0);
+	system.UsingSystem<MovementSystem>(obj, 0, 1);
+	system.UsingSystem<MovementSystem>(obj, -1, 1);
+	system.UsingSystem<MovementSystem>(obj, 1, -1);
 	
 
 
@@ -25,6 +25,17 @@ int main() {
 	Stive.Component<Dimension>(50, 50);
 	Stive.Component<Velocity>(10);
 	Stive.AddSystem<MovementSystem>();
+
+
+	Stive.Destroy();
+
+	Entity Bob(registry);
+	Stive.Component<Position>(100, 100);
+	Stive.Component<Dimension>(50, 50);
+	Stive.Component<Velocity>(10);
+	Bob.AddSystem<MovementSystem>();
+
+
 
 
 
@@ -40,9 +51,10 @@ int main() {
 		int move_y = IsKeyDown(KEY_S) - IsKeyDown(KEY_W);
 
 		if (move_x != 0 || move_y != 0) {
-			system.UsingSystem<MovementSystem>(1, move_x, move_y);
+			system.UsingSystem<MovementSystem>(obj, move_x, move_y);
 		}
 		Stive.UseSystem<MovementSystem>();
+		Bob.UseSystem<MovementSystem>();
 
 
 
@@ -50,8 +62,8 @@ int main() {
 		ClearBackground(RAYWHITE);
 
 
-		Position* pos = registry.TryGetComponent<Position>(1);
-		Dimension* dim = registry.TryGetComponent<Dimension>(1);
+		Position* pos = registry.TryGetComponent<Position>(obj);
+		Dimension* dim = registry.TryGetComponent<Dimension>(obj);
 
 		if (pos != nullptr && dim != nullptr) {
 			DrawRectangle(pos->x, pos->y, dim->width, dim->height, RED);

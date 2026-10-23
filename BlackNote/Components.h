@@ -28,6 +28,10 @@ struct Position {
 			<< y 
 			<< "] \n";
 	}
+
+	void Reset() {
+		x = 0.0; y = 0.0;
+	}
 };
 
 struct Dimension {
@@ -56,6 +60,11 @@ struct Dimension {
 			<< height 
 			<< "] \n";
 	}
+
+	void Reset() {
+		width = 0.0; height = 0.0;
+	}
+
 };
 
 struct Velocity {
@@ -74,6 +83,11 @@ struct Velocity {
 			<< velocity
 			<< "] \n";
 	}
+
+	void Reset() {
+		velocity = 0.0; 
+	}
+
 
 };
 

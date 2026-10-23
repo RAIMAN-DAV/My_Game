@@ -28,7 +28,7 @@ class EntitySystems {
 	template <typename T>
 	bool CheckComponent() {
 		if constexpr (is_same_v<T, MovementSystem>) {
-			return registry->HasComponent<Position, Velocity>(ID.PrintID());
+			return registry->HasComponent<Position, Velocity>(ID);
 		}
 		else {
 			static_assert(std::is_same_v<T, void>,
@@ -42,15 +42,14 @@ public:
 	EntitySystems(EntityID& id, Registry& reg)
 		: ID(id), registry(&reg) { 
 
-		if (reg.CheckID(id.PrintID())) {
+		if (reg.CheckID(id)) {
 			throw invalid_argument("EntitySystems: invalid entity ID \n");
 		}
 	}
 
-
 	template <typename T>
 	void SystemAdd() {
-		if (registry->CheckID(ID.PrintID())) {
+		if (registry->CheckID(ID)) {
 			cout << "ID" << ID.PrintID() << ": Error. Not Initialized" << endl;
 
 			return;
@@ -64,7 +63,7 @@ public:
 		}
 
 		if (CheckComponent<T>()) {
-			system.emplace(ID.PrintID(), *registry);
+			system.emplace(ID, *registry);
 
 			system->Print_Add();
 		}
@@ -75,7 +74,7 @@ public:
 
 	template <typename T, typename... Args>
 	void UsingSystem(Args... args) {
-		if (registry->CheckID(ID.PrintID())) {
+		if (registry->CheckID(ID)) {
 			cout << "ID" << ID.PrintID() << ": Error. Not Initialized" << endl;
 
 			return;
@@ -83,11 +82,17 @@ public:
 
 		auto& system = GetSystem<T>();
 
-		if (!system) {
-			cout << "ID" << ID.PrintID() << ": Error. Dont used EntitySystem. \n";
-			return;
-		}
+		if (!system) return;
 		system ->UsingSystem(args...);
-
 	}
+
+
+	template<typename T>
+	void DestroySystem() {
+		GetSystem<T>().reset();
+	}
+	void DestroySystem() {
+		move_s.reset();
+	}
+
 };
