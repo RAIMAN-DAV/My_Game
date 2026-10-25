@@ -45,8 +45,8 @@ struct MovementSystem {
 			return;
 		}
 
-		Pos->x += Vel->velocity * arg_x * 0.7;
-		Pos->y += Vel->velocity * arg_y * 0.7;
+		Pos->x += Vel->velocity * arg_x * 0.7f;
+		Pos->y += Vel->velocity * arg_y * 0.7f;
 
 	}
 

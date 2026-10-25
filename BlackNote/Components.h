@@ -8,6 +8,11 @@ struct Position {
 
 	Position(EntityID& startID, float startX, float startY) 
 		: ID(startID), x(startX), y(startY) {}
+	Position(EntityID& startID)
+		: ID(startID), x(0.0f), y(0.0f) {
+	}
+
+
 
 	void Set(float start_x, float start_y) {
 		x = start_x;

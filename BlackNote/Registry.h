@@ -42,12 +42,6 @@ public:
 		return ids.back();
 	}
 
-	bool CheckID(const uint64_t ID) {
-		if (ID == 0 || ID >= nextID) {
-			return true;
-		}
-		return false;
-	}
 	bool CheckID(const EntityID& ID) {
 		if (ID.PrintID() == 0 || ID.PrintID() >= nextID) {
 			return true;
@@ -87,10 +81,21 @@ public:
 		return stor.HasComponent<Args...>(ID);
 	}
 
-	void DestroyEntity(EntityID& ID) {
-		if (ID.PrintID() == 0) {
+	//Очистка компонентов сущности
+	void ResetEntity(EntityID& ID) {
+		if (CheckID(ID)) {
 			return;
 		}
+
+		stor.ResetComponents(ID);
+	}
+
+	//Уничтожение сущности
+	void DestroyEntity(EntityID& ID) {
+		if (CheckID(ID)) {
+			return;
+		}
+
 		stor.ResetComponents(ID);
 		cout << "ID" << ID.PrintID() << ": Entity Destroy \n ";
 		ID.DestroyID();

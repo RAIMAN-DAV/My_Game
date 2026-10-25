@@ -8,9 +8,10 @@
 //Библиотека для позжего инициализирования объекта 
 #include <optional>
 
-class EntitySystems {
 
-	EntityID& ID;
+
+class EntitySystems {
+	EntityID* ID;
 	Registry* registry;
 
 	optional<MovementSystem> move_s;
@@ -28,7 +29,7 @@ class EntitySystems {
 	template <typename T>
 	bool CheckComponent() {
 		if constexpr (is_same_v<T, MovementSystem>) {
-			return registry->HasComponent<Position, Velocity>(ID);
+			return registry->HasComponent<Position, Velocity>(*ID);
 		}
 		else {
 			static_assert(std::is_same_v<T, void>,
@@ -38,9 +39,9 @@ class EntitySystems {
 	}
 
 
-public: 
+public:
 	EntitySystems(EntityID& id, Registry& reg)
-		: ID(id), registry(&reg) { 
+		: ID(&id), registry(&reg) {
 
 		if (reg.CheckID(id)) {
 			throw invalid_argument("EntitySystems: invalid entity ID \n");
@@ -49,8 +50,10 @@ public:
 
 	template <typename T>
 	void SystemAdd() {
-		if (registry->CheckID(ID)) {
-			cout << "ID" << ID.PrintID() << ": Error. Not Initialized" << endl;
+		if (ID == nullptr) return;
+
+		if (registry->CheckID(*ID)) {
+			cout << "ID" << ID->PrintID() << ": Error. Not Initialized" << endl;
 
 			return;
 		}
@@ -58,24 +61,26 @@ public:
 		auto& system = GetSystem<T>();
 
 		if (system) {
-			cout << "ID" << ID.PrintID() << ": Error. Double system \n";
+			cout << "ID" << ID->PrintID() << ": Error. Double system \n";
 			return;
 		}
 
 		if (CheckComponent<T>()) {
-			system.emplace(ID, *registry);
+			system.emplace(*ID, *registry);
 
 			system->Print_Add();
 		}
 		else {
-			cout << "ID" << ID.PrintID() << ": Error. The components are not initialized. \n";
+			cout << "ID" << ID->PrintID() << ": Error. The components are not initialized. \n";
 		}
 	}
 
 	template <typename T, typename... Args>
 	void UsingSystem(Args... args) {
-		if (registry->CheckID(ID)) {
-			cout << "ID" << ID.PrintID() << ": Error. Not Initialized" << endl;
+		if (ID == nullptr) return;
+
+		if (registry->CheckID(*ID)) {
+			cout << "ID" << ID->PrintID() << ": Error. Not Initialized" << endl;
 
 			return;
 		}
@@ -83,9 +88,8 @@ public:
 		auto& system = GetSystem<T>();
 
 		if (!system) return;
-		system ->UsingSystem(args...);
+		system->UsingSystem(args...);
 	}
-
 
 	template<typename T>
 	void DestroySystem() {
@@ -95,4 +99,15 @@ public:
 		move_s.reset();
 	}
 
+	void Destroy() {
+		DestroySystem();
+
+		ID = nullptr;
+	}
+
+	void Recreate(EntityID& id) {
+		if (ID != nullptr) Destroy();
+
+		ID = &id;
+	}
 };

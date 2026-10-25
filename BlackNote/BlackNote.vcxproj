@@ -158,6 +158,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityID.h" />
     <ClInclude Include="EntitySystems.h" />
+    <ClInclude Include="Pattern.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="Storage.h" />
     <ClInclude Include="System.h" />

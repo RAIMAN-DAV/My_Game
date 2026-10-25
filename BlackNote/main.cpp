@@ -1,6 +1,7 @@
 #include "Registry.h"
 #include "Entity.h"
 #include "System.h"
+#include "Pattern.h"
 
 int main() {
 	Registry registry;
@@ -19,25 +20,30 @@ int main() {
 	system.UsingSystem<MovementSystem>(obj, 1, -1);
 	
 
-
-	Entity Stive(registry);
-	Stive.Component<Position>(50, 50);
-	Stive.Component<Dimension>(50, 50);
-	Stive.Component<Velocity>(10);
-	Stive.AddSystem<MovementSystem>();
-
-
-	Stive.Destroy();
-
-	Entity Bob(registry);
-	Stive.Component<Position>(100, 100);
-	Stive.Component<Dimension>(50, 50);
-	Stive.Component<Velocity>(10);
-	Bob.AddSystem<MovementSystem>();
+	Entity Georg(registry);
+	Georg.Component<Position>(0, 0);
+	Georg.Component<Dimension>(50, 100);
+	Georg.Component<Dimension>(50, 200);
+	Georg.Component<Velocity>(5);
+	Georg.AddSystem<MovementSystem>();
 
 
+	Pattern Wall;
+	Wall.AddPatternComponent<Position>(200, 200);
+	Wall.AddPatternComponent<Dimension>(80, 80);
+	Wall.AddPatternComponent<Velocity>(0);
+	Wall.AddPatternComponent<MovementSystem>();
+
+	Entity Wale_1(registry);
+	Entity Wale_2(registry);
+	Entity Wale_3(registry);
 
 
+	Wall >> Wale_1 >> Wale_2 >> Wale_3;
+
+	Wale_1.Component<Velocity>(5);
+	Wale_2.Component<Velocity>(7);
+	Wale_3.Component<Velocity>(10);
 
 
 
@@ -53,10 +59,11 @@ int main() {
 		if (move_x != 0 || move_y != 0) {
 			system.UsingSystem<MovementSystem>(obj, move_x, move_y);
 		}
-		Stive.UseSystem<MovementSystem>();
-		Bob.UseSystem<MovementSystem>();
+		Georg.UseSystem<MovementSystem>();
 
-
+		Wale_1.UseSystem<MovementSystem>();
+		Wale_2.UseSystem<MovementSystem>();
+		Wale_3.UseSystem<MovementSystem>();
 
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
@@ -68,9 +75,12 @@ int main() {
 		if (pos != nullptr && dim != nullptr) {
 			DrawRectangle(pos->x, pos->y, dim->width, dim->height, RED);
 		}
+		
+		Georg.Draw(SKYBLUE);
 
-		Stive.Draw(BLUE);
-
+		Wale_1.Draw(BLUE);
+		Wale_2.Draw(BLUE);
+		Wale_3.Draw(BLUE);
 
 		EndDrawing();
 	}
