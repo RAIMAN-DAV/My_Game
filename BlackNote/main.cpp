@@ -1,24 +1,10 @@
-#include "Registry.h"
-#include "Entity.h"
-#include "System.h"
-#include "Pattern.h"
+#include "World.h"
+
 
 int main() {
 	Registry registry;
-	System system(registry);
+	World world(registry);
 
-	EntityID& obj = registry.Add();
-	registry.AddComponent<Position>(obj, 0, 0);
-	registry.AddComponent<Dimension>(obj, 50, 50);
-	registry.AddComponent<Velocity>(obj, 10);
-	system.SystemAdd<MovementSystem>(obj);
-
-	system.UsingSystem<MovementSystem>(obj, 1, 1);
-	system.UsingSystem<MovementSystem>(obj, 1, 0);
-	system.UsingSystem<MovementSystem>(obj, 0, 1);
-	system.UsingSystem<MovementSystem>(obj, -1, 1);
-	system.UsingSystem<MovementSystem>(obj, 1, -1);
-	
 
 	Entity Georg(registry);
 	Georg.Component<Position>(0, 0);
@@ -28,17 +14,16 @@ int main() {
 	Georg.AddSystem<MovementSystem>();
 
 
+
 	Pattern Wall;
 	Wall.AddPatternComponent<Position>(200, 200);
 	Wall.AddPatternComponent<Dimension>(80, 80);
-	Wall.AddPatternComponent<Velocity>(0);
+	Wall.AddPatternComponent<Velocity>(3);
 	Wall.AddPatternComponent<MovementSystem>();
 
-	Entity Wale_1(registry);
-	Entity Wale_2(registry);
-	Entity Wale_3(registry);
-
-
+	Entity& Wale_1 = world.Add();
+	Entity& Wale_2 = world.Add();
+	Entity& Wale_3 = world.Add();
 	Wall >> Wale_1 >> Wale_2 >> Wale_3;
 
 	Wale_1.Component<Velocity>(5);
@@ -53,12 +38,16 @@ int main() {
 
 	while (!WindowShouldClose()) {
 
-		int move_x = IsKeyDown(KEY_D) - IsKeyDown(KEY_A);
-		int move_y = IsKeyDown(KEY_S) - IsKeyDown(KEY_W);
 
-		if (move_x != 0 || move_y != 0) {
-			system.UsingSystem<MovementSystem>(obj, move_x, move_y);
+		if (IsKeyPressed(KEY_X)) {
+			Wale_1.Destroy();
 		}
+
+		if (IsKeyPressed(KEY_R)) {
+			Wall >> Wale_1;
+		}
+
+
 		Georg.UseSystem<MovementSystem>();
 
 		Wale_1.UseSystem<MovementSystem>();
@@ -69,18 +58,12 @@ int main() {
 		ClearBackground(RAYWHITE);
 
 
-		Position* pos = registry.TryGetComponent<Position>(obj);
-		Dimension* dim = registry.TryGetComponent<Dimension>(obj);
-
-		if (pos != nullptr && dim != nullptr) {
-			DrawRectangle(pos->x, pos->y, dim->width, dim->height, RED);
-		}
-		
 		Georg.Draw(SKYBLUE);
 
-		Wale_1.Draw(BLUE);
-		Wale_2.Draw(BLUE);
-		Wale_3.Draw(BLUE);
+		world.ForEach([](Entity& entity) {
+			entity.Draw(BLUE);
+		});
+
 
 		EndDrawing();
 	}

@@ -163,6 +163,7 @@
     <ClInclude Include="Storage.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="System_Component.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

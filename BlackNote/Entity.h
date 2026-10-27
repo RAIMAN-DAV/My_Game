@@ -15,6 +15,10 @@ public:
 		: ID(&reg.Add()), registry(&reg), system(*ID, reg) {
 	}
 
+	~Entity() {
+		Destroy();
+	}
+
 	//Добавление систем
 	template<typename T>
 	void AddSystem() {
