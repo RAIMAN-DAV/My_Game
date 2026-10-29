@@ -35,6 +35,16 @@ public:
 		registry->AddComponent<T>(*ID, args...);
 	}
 
+	//Получение копий компонентов
+	template<typename T>
+	T* TryGetComponent() {
+		if (ID == nullptr || ID->PrintID() == 0) return nullptr;
+
+		T* component = registry->TryGetComponent<T>(ID);
+
+		return component;
+	}
+
 	//Вывод на экран объекта через RayLib
 	void Draw(Color color) {
 		if (ID == nullptr || ID->PrintID() == 0) return;
@@ -60,8 +70,13 @@ public:
 		}
 	}
 
-	//Применение шаблона
-	void ApplyPattern();
+	//Получение копий компонентов
+	template<typename T>
+	auto GetElemsComponent() {
+		return IsActive()
+			? registry->GetElemsComponent<T>(*ID)
+			: nullopt;
+	}
 
 
 	//Удаление систем
@@ -102,10 +117,16 @@ public:
 		system.Recreate(*ID);
 	}
 
+	//Проверка на наличие и активность
 	bool IsBound() const {
 		return ID != nullptr;
 	}
+	bool IsActive() const {
+		if (ID == nullptr || ID->PrintID() == 0) return false;
+		return true;
+	}
 
+	//Запреты
 	Entity(const Entity&) = delete;
 	Entity& operator=(const Entity&) = delete;
 

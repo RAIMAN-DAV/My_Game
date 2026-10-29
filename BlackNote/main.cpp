@@ -60,9 +60,11 @@ int main() {
 
 		Georg.Draw(SKYBLUE);
 
-		world.ForEach([](Entity& entity) {
-			entity.Draw(BLUE);
-		});
+		//world.ForEach([](Entity& entity) {
+		//	entity.Draw(BLUE);
+		//});
+
+		world.ForEach<Position, Dimension>(DrawRectangle, BLUE);
 
 
 		EndDrawing();

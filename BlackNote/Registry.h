@@ -23,7 +23,7 @@ class Registry {
 	}
 
 public:
-	 
+
 	EntityID& Add() {
 		if (freeCount > 0) {
 			uint64_t idx = FindFreeSlot();
@@ -102,6 +102,13 @@ public:
 		freeCount++;
 	}
 
+	//Получение копий компонентов
+	template<typename T>
+	auto GetElemsComponent(EntityID& ID) {
+		return CheckID(ID)
+			? nullopt
+			:stor.GetElemsComponent<T>(ID);
+	}
 };
 
 

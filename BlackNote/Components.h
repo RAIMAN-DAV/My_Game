@@ -1,18 +1,18 @@
 #pragma once
 #include "EntityID.h"
 #include <iostream>
+#include <tuple>
+#include <optional>
 
 struct Position {
 	EntityID& ID;
-	float x, y;
+	float x = 0.0f , y = 0.0f;
 
 	Position(EntityID& startID, float startX, float startY) 
 		: ID(startID), x(startX), y(startY) {}
 	Position(EntityID& startID)
 		: ID(startID), x(0.0f), y(0.0f) {
 	}
-
-
 
 	void Set(float start_x, float start_y) {
 		x = start_x;
@@ -24,6 +24,10 @@ struct Position {
 	}
 	float Get_elem_2() {
 		return y;
+	}
+
+	auto GetElems() const {
+		return make_tuple(x, y);
 	}
 
 	void PrintElem() {
@@ -58,6 +62,11 @@ struct Dimension {
 		return height;
 	}
 
+	auto GetElems() const {
+		return make_tuple(width, height);
+	}
+
+
 	const void PrintElem() {
 		cout << "[w, h] = ["
 			<< width
@@ -81,6 +90,10 @@ struct Velocity {
 
 	void Set(float startVelosity) {
 		velocity = startVelosity;
+	}
+
+	auto GetElems() const {
+		return make_tuple(velocity);
 	}
 
 	const void PrintElem() {

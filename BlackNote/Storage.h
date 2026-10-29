@@ -106,4 +106,26 @@ public:
 		if (vel != nullptr) vel->Reset();
 
 	}
+
+	template<typename T>
+	auto GetElemsComponent(EntityID& ID) {
+		auto* component = TryGetComponents<T>(ID);
+
+		using Elems = decltype(component->GetElems());
+
+		if (component == nullptr)
+			return std::optional<Elems>{};
+
+		return std::optional<Elems>{component->GetElems()};
+	}
+	/* Или можно: 
+	 template<typename T>
+	 auto GetElemsComponent(EntityID& ID) {
+     auto* component = TryGetComponents<T>(ID);
+
+     return component
+         ? std::optional{component->GetElems()}
+         : std::nullopt;
+	}
+	*/
 };
