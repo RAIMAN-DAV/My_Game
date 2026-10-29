@@ -40,7 +40,7 @@ public:
 	T* TryGetComponent() {
 		if (ID == nullptr || ID->PrintID() == 0) return nullptr;
 
-		T* component = registry->TryGetComponent<T>(ID);
+		T* component = registry->TryGetComponent<T>(*ID);
 
 		return component;
 	}

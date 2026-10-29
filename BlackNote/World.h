@@ -29,6 +29,15 @@ public:
 		return *entities.back();
 	 }
 
+	template<typename T>
+	void UseSystem() {
+		for (auto& entity : entities) {
+			if (entity->IsActive()) {
+				entity->UseSystem<T>();
+			}
+		}
+	}
+
 	template<typename Function>
 	void ForEach(Function&& action) {
 		for (auto& entity : entities) {
